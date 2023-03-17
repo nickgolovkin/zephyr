@@ -8,4 +8,10 @@ public class HttpClientUtils {
 
         return response.getBody();
     }
+
+    public static void checkSuccessful(Response response) {
+        if (response.getStatusCode() != 200) {
+            throw new UnexpectedStatusCodeException(response);
+        }
+    }
 }

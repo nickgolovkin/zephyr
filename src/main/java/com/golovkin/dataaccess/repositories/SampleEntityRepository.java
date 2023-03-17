@@ -17,4 +17,12 @@ public class SampleEntityRepository {
     public void create(SampleEntity entity) {
         dao.create(entity);
     }
+
+    public void update(SampleEntity entity) {
+        dao.update(entity);
+    }
+
+    public void delete(SampleEntity entity) {
+        dao.delete(entity);
+    }
 }

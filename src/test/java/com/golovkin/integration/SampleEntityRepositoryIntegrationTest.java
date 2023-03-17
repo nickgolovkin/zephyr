@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static com.golovkin.integration.Assertions.*;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 
 public class SampleEntityRepositoryIntegrationTest {
     @Mock
@@ -71,5 +71,55 @@ public class SampleEntityRepositoryIntegrationTest {
         sampleEntityRepository.create(sampleEntity);
 
         assertEquals("/model/create/sampleentity/expected.json", sampleEntity);
+    }
+
+    @Test
+    public void update() {
+        Request request = new Request();
+        request.setMethod(HttpMethod.PUT);
+        request.setUrl("http://jira.com/v1/update");
+        request.setBody(Resources.read("/dto/update/sampleentitydto/request.json"));
+
+        Response response = new Response();
+        response.setStatusCode(200);
+
+        doReturn(response).when(httpClient).execute(request);
+
+        SampleEntityMapper sampleEntityMapper = new SampleEntityMapper();
+        SampleEntityDtoMapper sampleEntityDtoMapper = new SampleEntityDtoMapper();
+        SampleEntityDao sampleEntityDao = new SampleEntityDao(httpClient, sampleEntityMapper, sampleEntityDtoMapper);
+        SampleEntityRepository sampleEntityRepository = new SampleEntityRepository(sampleEntityDao);
+
+        SampleEntity sampleEntity = new SampleEntity();
+        sampleEntity.setId(1L);
+        sampleEntity.setName("another");
+        sampleEntityRepository.update(sampleEntity);
+
+        verify(httpClient, times(1)).execute(request);
+    }
+
+    @Test
+    public void delete() {
+        Request request = new Request();
+        request.setMethod(HttpMethod.DELETE);
+        request.setUrl("http://jira.com/v1/delete");
+        request.setBody(Resources.read("/dto/delete/sampleentitydto/request.json"));
+
+        Response response = new Response();
+        response.setStatusCode(200);
+
+        doReturn(response).when(httpClient).execute(request);
+
+        SampleEntityMapper sampleEntityMapper = new SampleEntityMapper();
+        SampleEntityDtoMapper sampleEntityDtoMapper = new SampleEntityDtoMapper();
+        SampleEntityDao sampleEntityDao = new SampleEntityDao(httpClient, sampleEntityMapper, sampleEntityDtoMapper);
+        SampleEntityRepository sampleEntityRepository = new SampleEntityRepository(sampleEntityDao);
+
+        SampleEntity sampleEntity = new SampleEntity();
+        sampleEntity.setId(1L);
+        sampleEntity.setName("another");
+        sampleEntityRepository.delete(sampleEntity);
+
+        verify(httpClient, times(1)).execute(request);
     }
 }
