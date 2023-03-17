@@ -13,4 +13,8 @@ public class SampleEntityRepository {
     public SampleEntity getById(long id) {
         return dao.getById(id);
     }
+
+    public void create(SampleEntity entity) {
+        dao.create(entity);
+    }
 }

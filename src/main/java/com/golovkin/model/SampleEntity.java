@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SampleEntity {
-    private Integer id;
+    private Long id;
     private String name;
 }

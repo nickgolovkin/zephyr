@@ -1,4 +1,4 @@
-package com.golovkin.dataaccess.mappers;
+package com.golovkin.dataaccess.mappers.entity;
 
 import com.golovkin.dataaccess.dto.SampleEntityDto;
 import com.golovkin.model.SampleEntity;

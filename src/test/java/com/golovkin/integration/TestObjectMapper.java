@@ -25,6 +25,11 @@ public class TestObjectMapper {
         return read(path, JsonNode.class);
     }
 
+    public static JsonNode readToJsonNode(String path, Class<?> clazz) {
+        Object object = read(path, clazz);
+        return objectMapper.valueToTree(object);
+    }
+
     public static JsonNode readToJsonNode(Object object) {
         return objectMapper.valueToTree(object);
     }
